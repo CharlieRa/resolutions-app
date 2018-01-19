@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <img src="./assets/logo.png">
+    <h1>{{msg}} {{year}}</h1>
+    <!-- <img src="./assets/logo.png"> -->
     <ResolutionList/>
   </div>
 </template>
@@ -13,7 +14,13 @@ export default {
   components: {
     ResolutionList,
   },
-};
+  data(){
+    return{
+      msg: 'My Resolutions for ',
+      year: new Date().getFullYear(),
+    };
+  }
+}; 
 </script>
 
 <style>

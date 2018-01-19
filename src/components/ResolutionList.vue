@@ -1,29 +1,69 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }} {{year}}</h1>
-      <md-checkbox v-model="array" value="1">Array</md-checkbox>
-      <md-checkbox v-model="array" value="2">Array</md-checkbox>
-      <md-checkbox v-model="boolean">Boolean</md-checkbox>
-      <md-checkbox v-model="string" value="my-checkbox">String</md-checkbox>
-      <md-checkbox v-model="novalue">No Value</md-checkbox>
-      <md-checkbox v-model="disabled" disabled>Disabled</md-checkbox>
-
-      <table>
-        <tr>
-          <th>Array</th>
-          <th>Boolean</th>
-          <th>String</th>
-          <th>No Value</th>
-        </tr>
-
-        <tr>
-          <td>{{ array }}</td>
-          <td>{{ boolean }}</td>
-          <td>{{ string }}</td>
-          <td>{{ novalue }}</td>
-        </tr>
-    </table>
-  </div>
+   <v-layout row>
+    <v-flex xs12 sm12>
+      <v-card>
+        <v-toolbar color="teal" dark>
+          <v-toolbar-side-icon></v-toolbar-side-icon>
+          <v-toolbar-title>Settings</v-toolbar-title>
+        </v-toolbar>
+        <v-list two-line subheader>
+          <v-subheader>General</v-subheader>
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>Profile photo</v-list-tile-title>
+              <v-list-tile-sub-title>Change your Google+ profile photo</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>Show your status</v-list-tile-title>
+              <v-list-tile-sub-title>Your status is visible to everyone</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+        <v-divider></v-divider>
+        <v-list two-line subheader>
+          <v-subheader>Hangout notifications</v-subheader>
+          <v-list-tile avatar>
+            <v-list-tile-action>
+              <v-checkbox v-model="notifications"></v-checkbox>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Notifications</v-list-tile-title>
+              <v-list-tile-sub-title>Allow notifications</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile avatar>
+            <v-list-tile-action>
+              <v-checkbox v-model="sound"></v-checkbox>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Sound</v-list-tile-title>
+              <v-list-tile-sub-title>Hangouts message</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile avatar>
+            <v-list-tile-action>
+              <v-checkbox v-model="video"></v-checkbox>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Video sounds</v-list-tile-title>
+              <v-list-tile-sub-title>Hangouts video call</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile avatar>
+            <v-list-tile-action>
+              <v-checkbox v-model="invites"></v-checkbox>
+            </v-list-tile-action>
+            <v-list-tile-content>
+              <v-list-tile-title>Invites</v-list-tile-title>
+              <v-list-tile-sub-title>Notify when receiving invites</v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
+        </v-list>
+      </v-card>
+    </v-flex>
+  </v-layout>
 </template>
 
 <script>
@@ -31,13 +71,6 @@ export default {
   name: 'ResolutionList',
   data() {
     return {
-      msg: 'My Resolutions for ',
-      year: new Date().getFullYear(),
-      array: [],
-      boolean: false,
-      string: null,
-      novalue: null,
-      disabled: true,
     };
   },
 };
@@ -49,7 +82,4 @@ export default {
 h1 {
   font-weight: normal;
 }
-  .md-checkbox {
-    display: flex;
-  }
 </style>
