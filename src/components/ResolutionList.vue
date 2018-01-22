@@ -1,63 +1,24 @@
 <template>
    <v-layout row>
     <v-flex xs12 sm12>
-      <v-card>
-        <v-toolbar color="teal" dark>
+      <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
+      <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
+      <v-card xs6 sm6 md6>
+        <!-- <v-toolbar color="teal" dark>
           <v-toolbar-side-icon></v-toolbar-side-icon>
           <v-toolbar-title>Settings</v-toolbar-title>
-        </v-toolbar>
-        <v-list two-line subheader>
-          <v-subheader>General</v-subheader>
-          <v-list-tile avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>Profile photo</v-list-tile-title>
-              <v-list-tile-sub-title>Change your Google+ profile photo</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>Show your status</v-list-tile-title>
-              <v-list-tile-sub-title>Your status is visible to everyone</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
+        </v-toolbar> -->
         <v-divider></v-divider>
+        <v-text-field box label="New Resolution" v-model="newResolution"></v-text-field>
         <v-list two-line subheader>
-          <v-subheader>Hangout notifications</v-subheader>
-          <v-list-tile avatar>
+          <!-- <v-subheader>Hangout notifications</v-subheader> -->
+          <v-list-tile avatar v-for="todo in todos" :key="todo.id">
             <v-list-tile-action>
-              <v-checkbox v-model="notifications"></v-checkbox>
+              <v-checkbox v-model="todo.done"></v-checkbox>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title>Notifications</v-list-tile-title>
-              <v-list-tile-sub-title>Allow notifications</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="sound"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Sound</v-list-tile-title>
-              <v-list-tile-sub-title>Hangouts message</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="video"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Video sounds</v-list-tile-title>
-              <v-list-tile-sub-title>Hangouts video call</v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-          <v-list-tile avatar>
-            <v-list-tile-action>
-              <v-checkbox v-model="invites"></v-checkbox>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>Invites</v-list-tile-title>
-              <v-list-tile-sub-title>Notify when receiving invites</v-list-tile-sub-title>
+              <v-list-tile-title> {{todo.title}} </v-list-tile-title>
+              <v-list-tile-sub-title> {{todo.detail}} </v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -71,6 +32,29 @@ export default {
   name: 'ResolutionList',
   data() {
     return {
+      newResolution: '',
+      todos:
+      [{
+        id: 0,
+        title: 'Todo A',
+        detail: 'detail A',
+        done: false,
+      }, {
+        id: 1,
+        title: 'Todo B',
+        detail: 'detail B',
+        done: true,
+      }, {
+        id: 2,
+        title: 'Todo C',
+        detail: 'detail C',
+        done: false,
+      }, {
+        id: 3,
+        title: 'Todo D',
+        detail: 'detail D',
+        done: false,
+      }],
     };
   },
 };

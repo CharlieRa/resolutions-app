@@ -14,13 +14,13 @@ export default {
   components: {
     ResolutionList,
   },
-  data(){
-    return{
+  data() {
+    return {
       msg: 'My Resolutions for ',
       year: new Date().getFullYear(),
     };
-  }
-}; 
+  },
+};
 </script>
 
 <style>
