@@ -3,22 +3,11 @@
     <v-flex xs12 sm12>
       <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
       <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
-      <v-btn color="indigo">
+      <v-btn color="white">
         New Resolution
       </v-btn>
       <v-card xs6 sm6 md6>
-        <!-- <v-toolbar color="teal" dark>
-          <v-toolbar-side-icon></v-toolbar-side-icon>
-          <v-toolbar-title>Settings</v-toolbar-title>
-        </v-toolbar> -->
-        <v-divider></v-divider>
-        <v-text-field box label="Title" v-model="title"></v-text-field>
-        <v-text-field box label="Detail" v-model="detail"></v-text-field>
-        <v-btn icon ripple v-on:click="deleteTodo(todo)">
-            <v-icon color="red lighten-1">delete</v-icon>
-          </v-btn>
         <v-list two-line subheader>
-          <!-- <v-subheader>Hangout notifications</v-subheader> -->
           <v-list-tile avatar v-for="todo in todos" :key="todo.id">
             <v-list-tile-action>
               <v-checkbox v-model="todo.done"></v-checkbox>
@@ -49,8 +38,6 @@ export default {
   name: 'ResolutionList',
   data() {
     return {
-      title: '',
-      detail: '',
       todos:
       [{
         id: 0,
@@ -62,16 +49,6 @@ export default {
         title: 'Todo B',
         detail: 'detail B',
         done: true,
-      }, {
-        id: 2,
-        title: 'Todo C',
-        detail: 'detail C',
-        done: false,
-      }, {
-        id: 3,
-        title: 'Todo D',
-        detail: 'detail D',
-        done: false,
       }],
     };
   },
