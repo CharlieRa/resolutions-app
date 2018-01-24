@@ -1,18 +1,19 @@
 <template>
   <div id="app">
     <h1>{{msg}} {{year}}</h1>
-    <!-- <img src="./assets/logo.png"> -->
     <ResolutionList/>
   </div>
 </template>
 
 <script>
 import ResolutionList from './components/ResolutionList';
+import CreateResolution from './components/CreateResolution';
 
 export default {
   name: 'App',
   components: {
     ResolutionList,
+    CreateResolution,
   },
   data() {
     return {

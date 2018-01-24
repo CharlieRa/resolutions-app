@@ -3,9 +3,6 @@
     <v-flex xs12 sm12>
       <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
       <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
-      <v-btn color="white">
-        New Resolution
-      </v-btn>
       <v-card xs6 sm6 md6>
         <v-list two-line subheader>
           <v-list-tile avatar v-for="todo in todos" :key="todo.id">

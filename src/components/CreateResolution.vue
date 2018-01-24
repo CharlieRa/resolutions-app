@@ -1,5 +1,12 @@
 <template>
-   <v-layout row>
+  <!-- <v-layout row>
+    <v-flex xs12 sm12>
+    <v-btn color="white" v-on:click="showForm()">
+        New Resolution
+      </v-btn>
+    </v-flex>
+  </v-layout>  -->
+  <v-layout row>
     <v-flex xs12 sm12>
         <v-text-field box label="Title" v-model="title"></v-text-field>
         <v-text-field box label="Detail" v-model="detail"></v-text-field>
@@ -12,7 +19,7 @@
 
 <script>
 export default {
-  name: 'ResolutionList',
+  name: 'CreateResolution',
   data() {
     return {
       titleText: '',
@@ -21,7 +28,7 @@ export default {
     };
   },
   methods: {
-    openForm() {
+    showForm() {
       this.isCreating = true;
     },
     closeForm() {
