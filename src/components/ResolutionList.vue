@@ -50,7 +50,7 @@ export default {
     };
   },
   methods: {
-    deleteTodo: function (todo) {
+    deleteTodo(todo) {
       const todoIndex = this.todos.indexOf(todo);
       this.todos.splice(todoIndex, 1);
     },

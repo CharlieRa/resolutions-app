@@ -1,17 +1,13 @@
 <template>
-  <!-- <v-layout row>
-    <v-flex xs12 sm12>
-    <v-btn color="white" v-on:click="showForm()">
-        New Resolution
-      </v-btn>
+  <v-layout column>
+    <v-flex>
+       <v-btn color="white" v-on:click="showForm()">New Resolution</v-btn>
     </v-flex>
-  </v-layout>  -->
-  <v-layout row>
-    <v-flex xs12 sm12>
+    <v-flex v-show="isCreating">
         <v-text-field box label="Title" v-model="title"></v-text-field>
         <v-text-field box label="Detail" v-model="detail"></v-text-field>
-        <v-btn icon ripple v-on:click="sendForm()">
-            <v-icon color="red lighten-1">Add Resolution</v-icon>
+        <v-btn ripple v-on:click="sendForm()">
+          Add<v-icon right dark>add</v-icon>
         </v-btn>
     </v-flex>
   </v-layout>
@@ -22,8 +18,8 @@ export default {
   name: 'CreateResolution',
   data() {
     return {
-      titleText: '',
-      projectText: '',
+      title: '',
+      detail: '',
       isCreating: false,
     };
   },
@@ -35,15 +31,15 @@ export default {
       this.isCreating = false;
     },
     sendForm() {
-      if (this.titleText.length > 0 && this.projectText.length > 0) {
-        const title = this.titleText;
-        const project = this.projectText;
-        this.$emit('create-todo', {
-          title,
-          project,
+      if (this.title.length > 0 && this.detail.length > 0) {
+        const titleText = this.title;
+        const detailText = this.detail;
+        this.$emit('create-resolution', {
+          titleText,
+          detailText,
           done: false,
         });
-        this.newTodoText = '';
+        // this.newTodoText = '';
       }
       this.isCreating = false;
     },
