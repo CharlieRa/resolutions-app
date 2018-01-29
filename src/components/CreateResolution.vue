@@ -4,8 +4,8 @@
        <v-btn color="white" v-on:click="showForm()">New Resolution</v-btn>
     </v-flex>
     <v-flex v-show="isCreating">
-        <v-text-field box label="Title" v-model="title"></v-text-field>
-        <v-text-field box label="Detail" v-model="detail"></v-text-field>
+        <v-text-field box label="Title" v-model="titleText"></v-text-field>
+        <v-text-field box label="Detail" v-model="detailText"></v-text-field>
         <v-btn ripple v-on:click="sendForm()">
           Add<v-icon right dark>add</v-icon>
         </v-btn>
@@ -18,8 +18,8 @@ export default {
   name: 'CreateResolution',
   data() {
     return {
-      title: '',
-      detail: '',
+      titleText: '',
+      detailText: '',
       isCreating: false,
     };
   },
@@ -31,12 +31,12 @@ export default {
       this.isCreating = false;
     },
     sendForm() {
-      if (this.title.length > 0 && this.detail.length > 0) {
-        const titleText = this.title;
-        const detailText = this.detail;
+      if (this.titleText.length > 0 && this.detailText.length > 0) {
+        const title = this.titleText;
+        const detail = this.detailText;
         this.$emit('create-resolution', {
-          titleText,
-          detailText,
+          title,
+          detail,
           done: false,
         });
         // this.newTodoText = '';

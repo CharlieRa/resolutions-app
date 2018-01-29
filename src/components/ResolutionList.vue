@@ -1,17 +1,19 @@
 <template>
    <v-layout row>
     <v-flex xs12 sm12>
-      <p>Completed Tasks: {{todos.filter(todo => {return todo.done === true}).length}}</p>
-      <p>Pending Tasks: {{todos.filter(todo => {return todo.done === false}).length}}</p>
+      <p>Completed Tasks:
+        {{resolutions.filter(resolution => {return resolution.done === true}).length}}</p>
+      <p>Pending Tasks:
+        {{resolutions.filter(resolution => {return resolution.done === false}).length}}</p>
       <v-card xs6 sm6 md6>
         <v-list two-line subheader>
-          <v-list-tile avatar v-for="todo in todos" :key="todo.id">
+          <v-list-tile avatar v-for="resolution in resolutions" :key="resolution.id">
             <v-list-tile-action>
-              <v-checkbox v-model="todo.done"></v-checkbox>
+              <v-checkbox v-model="resolution.done"></v-checkbox>
             </v-list-tile-action>
             <v-list-tile-content>
-              <v-list-tile-title> {{todo.title}} </v-list-tile-title>
-              <v-list-tile-sub-title> {{todo.detail}} </v-list-tile-sub-title>
+              <v-list-tile-title> {{resolution.title}} </v-list-tile-title>
+              <v-list-tile-sub-title> {{resolution.detail}} </v-list-tile-sub-title>
             </v-list-tile-content>
              <v-list-tile-action>
               <v-btn icon ripple>
@@ -19,7 +21,7 @@
               </v-btn>
             </v-list-tile-action>
              <v-list-tile-action>
-              <v-btn icon ripple v-on:click="deleteTodo(todo)">
+              <v-btn icon ripple v-on:click="deleteTodo(resolution)">
                 <v-icon color="red lighten-1">delete</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -33,26 +35,15 @@
 <script>
 export default {
   name: 'ResolutionList',
+  props: ['resolutions'],
   data() {
     return {
-      todos:
-      [{
-        id: 0,
-        title: 'Todo A',
-        detail: 'detail A',
-        done: false,
-      }, {
-        id: 1,
-        title: 'Todo B',
-        detail: 'detail B',
-        done: true,
-      }],
     };
   },
   methods: {
-    deleteTodo(todo) {
-      const todoIndex = this.todos.indexOf(todo);
-      this.todos.splice(todoIndex, 1);
+    deleteTodo(resolution) {
+      const resolutionIndex = this.resolutions.indexOf(resolution);
+      this.resolutions.splice(resolutionIndex, 1);
     },
   },
 };

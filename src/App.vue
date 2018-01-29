@@ -4,15 +4,15 @@
       <v-container fluid fill-height>
         <v-layout justify-center align-center column>
           <h1>{{msg}} {{year}}</h1>
-          <CreateResolution v-on:add-todo="addTodo" />
-          <ResolutionList/>
+          <CreateResolution v-on:create-resolution="addResolution" />
+          <ResolutionList v-bind:resolutions="resolutions"/>
          </v-layout>
       </v-container>
     </v-content>
   </v-app>
 </template>
 
-<!-- 
+<!--
 <template>
   <div id="app">
     <h1>{{msg}} {{year}}</h1>
@@ -23,11 +23,20 @@
 -->
 
 <script>
+import Firebase from 'firebase';
 import ResolutionList from './components/ResolutionList';
 import CreateResolution from './components/CreateResolution';
+import { config } from '../config/firebase-config';
+
+const app = Firebase.initializeApp(config);
+const db = app.database();
+const resolutionsRef = db.ref('resolutions');
 
 export default {
   name: 'App',
+  firebase: {
+    resolutions: resolutionsRef,
+  },
   components: {
     ResolutionList,
     CreateResolution,
@@ -38,12 +47,14 @@ export default {
       year: new Date().getFullYear(),
     };
   },
+  created: () => {
+    // console.log(this.resolutions);
+  },
   methods: {
-    addTodo(title) {
-      this.todos.push({
-        title,
-        done: false,
-      });
+    addResolution(newResolution) {
+      resolutionsRef.push(
+        newResolution,
+      );
     },
   },
 };
