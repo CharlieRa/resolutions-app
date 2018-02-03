@@ -42,8 +42,10 @@ export default {
   },
   methods: {
     deleteTodo(resolution) {
-      const resolutionIndex = this.resolutions.indexOf(resolution);
-      this.resolutions.splice(resolutionIndex, 1);
+      this.$emit('remove-resolution', resolution);
+      // const resolutionIndex = this.resolutions.indexOf(resolution);
+      // this.resolutions
+      // this.resolutions.splice(resolutionIndex, 1);
     },
   },
 };

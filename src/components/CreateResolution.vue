@@ -9,6 +9,9 @@
         <v-btn ripple v-on:click="sendForm()">
           Add<v-icon right dark>add</v-icon>
         </v-btn>
+        <v-btn ripple v-on:click="closeForm()">
+          Close<v-icon right dark>close</v-icon>
+        </v-btn>
     </v-flex>
   </v-layout>
 </template>
@@ -39,7 +42,6 @@ export default {
           detail,
           done: false,
         });
-        // this.newTodoText = '';
       }
       this.isCreating = false;
     },
@@ -47,8 +49,6 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<!-- <style lang="scss-loader" scoped> -->
 <style scoped>
 h1 {
   font-weight: normal;

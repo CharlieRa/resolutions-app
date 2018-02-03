@@ -1,11 +1,18 @@
 <template>
-  <v-app id="app">
+  <v-app id="app" dark>
    <v-content>
+      <v-toolbar>
+          <v-toolbar-title class="white--text">
+            {{msg}} {{year}}
+          </v-toolbar-title>
+      </v-toolbar>
       <v-container fluid fill-height>
         <v-layout justify-center align-center column>
           <h1>{{msg}} {{year}}</h1>
           <CreateResolution v-on:create-resolution="addResolution" />
-          <ResolutionList v-bind:resolutions="resolutions"/>
+          <ResolutionList
+            v-on:remove-resolution="deleteResolution"
+            v-bind:resolutions="resolutions"/>
          </v-layout>
       </v-container>
     </v-content>
@@ -56,6 +63,9 @@ export default {
         newResolution,
       );
     },
+    deleteResolution(resolution) {
+      resolutionsRef.child(resolution['.key']).remove();
+    },
   },
 };
 </script>
@@ -67,6 +77,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  /* margin-top: 60px; */
 }
 </style>
