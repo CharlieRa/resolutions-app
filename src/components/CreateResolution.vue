@@ -1,12 +1,12 @@
 <template>
   <v-container fluid>
-    <v-layout column>
+    <v-layout column align-center>
       <v-flex>
-        <v-btn color="white" v-on:click="showForm()">New Resolution</v-btn>
+        <v-btn v-on:click="showForm()">New Resolution</v-btn>
       </v-flex>
       <v-flex v-show="isCreating">
-          <v-text-field box label="Title" v-model="titleText"></v-text-field>
-          <v-text-field box label="Detail" v-model="detailText"></v-text-field>
+          <v-text-field label="Title" v-model="titleText"></v-text-field>
+          <v-text-field label="Detail" v-model="detailText"></v-text-field>
           <v-btn ripple v-on:click="sendForm()">
             Add<v-icon right dark>add</v-icon>
           </v-btn>
@@ -30,6 +30,8 @@ export default {
   },
   methods: {
     showForm() {
+      this.titleText = '';
+      this.detailText = '';
       this.isCreating = true;
     },
     closeForm() {
