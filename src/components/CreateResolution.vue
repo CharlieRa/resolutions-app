@@ -1,19 +1,21 @@
 <template>
-  <v-layout column>
-    <v-flex>
-       <v-btn color="white" v-on:click="showForm()">New Resolution</v-btn>
-    </v-flex>
-    <v-flex v-show="isCreating">
-        <v-text-field box label="Title" v-model="titleText"></v-text-field>
-        <v-text-field box label="Detail" v-model="detailText"></v-text-field>
-        <v-btn ripple v-on:click="sendForm()">
-          Add<v-icon right dark>add</v-icon>
-        </v-btn>
-        <v-btn ripple v-on:click="closeForm()">
-          Close<v-icon right dark>close</v-icon>
-        </v-btn>
-    </v-flex>
-  </v-layout>
+  <v-container fluid>
+    <v-layout column>
+      <v-flex>
+        <v-btn color="white" v-on:click="showForm()">New Resolution</v-btn>
+      </v-flex>
+      <v-flex v-show="isCreating">
+          <v-text-field box label="Title" v-model="titleText"></v-text-field>
+          <v-text-field box label="Detail" v-model="detailText"></v-text-field>
+          <v-btn ripple v-on:click="sendForm()">
+            Add<v-icon right dark>add</v-icon>
+          </v-btn>
+          <v-btn ripple v-on:click="closeForm()">
+            Close<v-icon right dark>close</v-icon>
+          </v-btn>
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

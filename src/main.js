@@ -3,12 +3,12 @@
 import Vue from 'vue';
 import Vuetify from 'vuetify';
 import VueFire from 'vuefire';
-import '../node_modules/vuetify/dist/vuetify.min.css';
+import 'vuetify/dist/vuetify.min.css';
 import App from './App';
 
-Vue.config.productionTip = false;
 Vue.use(Vuetify);
 Vue.use(VueFire);
+Vue.config.productionTip = false;
 
 /* eslint-disable no-new */
 new Vue({
