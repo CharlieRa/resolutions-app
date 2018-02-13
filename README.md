@@ -1,6 +1,19 @@
-# resolutions-app
+# Resolutions App
 
-> A list of my Year Resolutions
+A list of my Year Resolutions
+
+## ToDo
+
+- [ ] Edit functionality
+- [x] Delete functionality
+- [x] Add a new resolution
+- [x] Show form with button 
+- [ ] Dark Theme
+- [ ] Move button of New Resoltino to the Toolbar
+- [ ] Upload project in heroku or github pages
+- [ ] Make a better design
+- [x] Connect with firebase
+- [ ] 
 
 ## Build Setup
 
@@ -23,5 +36,3 @@ npm run unit
 # run all tests
 npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).

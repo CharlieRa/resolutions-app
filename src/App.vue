@@ -33,7 +33,7 @@
       <v-spacer></v-spacer>
     </v-toolbar>
     <v-content>
-      <HelloWorld/>
+      <Quote/>
       <CreateResolution v-on:create-resolution="addResolution" />
       <ResolutionList
         v-on:remove-resolution="deleteResolution"
