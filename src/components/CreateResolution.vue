@@ -2,7 +2,7 @@
   <v-container fluid>
     <v-layout column align-center>
       <v-flex>
-        <v-btn v-on:click="showForm()">New Resolution</v-btn>
+        <v-btn v-on:click="showForm()" v-show="authenticate">New Resolution</v-btn>
       </v-flex>
       <v-flex v-show="isCreating">
           <v-text-field label="Title" v-model="titleText"></v-text-field>
@@ -23,6 +23,7 @@ export default {
   name: 'CreateResolution',
   data() {
     return {
+      authenticate: false,
       titleText: '',
       detailText: '',
       isCreating: false,

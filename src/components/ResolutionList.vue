@@ -22,12 +22,12 @@
                 <v-list-tile-sub-title> {{resolution.detail}} </v-list-tile-sub-title>
               </v-list-tile-content>
               <v-list-tile-action>
-                <v-btn icon ripple>
+                <v-btn icon ripple v-show="authenticate">
                   <v-icon color="blue lighten-1">edit</v-icon>
                 </v-btn>
               </v-list-tile-action>
               <v-list-tile-action>
-                <v-btn icon ripple v-on:click="deleteTodo(resolution)">
+                <v-btn icon ripple v-show="authenticate" v-on:click="deleteTodo(resolution)">
                   <v-icon color="red lighten-1">delete</v-icon>
                 </v-btn>
               </v-list-tile-action>
@@ -45,6 +45,7 @@ export default {
   props: ['resolutions'],
   data() {
     return {
+      authenticate: false,
     };
   },
   methods: {
