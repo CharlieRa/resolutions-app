@@ -31,13 +31,29 @@
       <!-- <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
       <v-toolbar-title> {{ title }} {{ year }} </v-toolbar-title>
       <v-spacer></v-spacer>
+        <p color="orange"> Welcome Back {{ user.email }} </p>
+        <v-btn flat color="orange" v-show="!auth" @click.stop="dialog = true">Login</v-btn>
+        <v-btn flat color="orange" v-show="auth" v-on:click="signOut()">Sign Out</v-btn>
     </v-toolbar>
     <v-content>
+
+      <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+            Edit Resolution
+          </v-card-title>
+          <v-card-text>
+            <v-btn color="primary" dark  v-on:click="loginWithProvider('google')">Login With Google</v-btn>
+            <v-btn color="white" flat @click.stop="dialog=false">Close</v-btn>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+
       <Quote/>
       <CreateResolution v-on:create-resolution="addResolution" />
       <ResolutionList
         v-on:remove-resolution="deleteResolution"
-        v-bind:resolutions="resolutions"/>
+        v-bind:resolutions="resolutions" v-bind:auth="auth"/>
     </v-content>
     <v-footer :fixed="fixed" app>
       <span>&copy; <span v-text="year"></span> </span>
@@ -57,10 +73,15 @@ const db = app.database();
 const resolutionsRef = db.ref('resolutions');
 
 export default {
+  name: 'App',
   data() {
     return {
+      auth: false,
       title: 'My resolutions for ',
       year: new Date().getFullYear(),
+      dialog: false,
+      user: {},
+      token: '',
       clipped: false,
       drawer: false,
       fixed: false,
@@ -73,7 +94,9 @@ export default {
       rightDrawer: false,
     };
   },
-  name: 'App',
+  beforeCreate: () => {
+    console.log(this.user);
+  },
   methods: {
     addResolution(newResolution) {
       resolutionsRef.push(
@@ -82,6 +105,41 @@ export default {
     },
     deleteResolution(resolution) {
       resolutionsRef.child(resolution['.key']).remove();
+    },
+    loginWithProvider(provider) {
+      let prvdr;
+      if (provider === 'google') {
+        prvdr = new Firebase.auth.GoogleAuthProvider();
+        Firebase.auth().languageCode = 'es';
+        Firebase.auth().signInWithPopup(prvdr)
+          .then(
+            (result) => {
+              this.token = result.credential.accessToken;
+              this.user = result.user;
+              if (this.user.email === 'carlos.ramart@gmail.com') {
+                this.auth = true;
+              }
+              console.log(this.user);
+              console.log(this.token);
+              this.dialog = false;
+            })
+          .catch(
+            (error) => {
+              console.log(error);
+            });
+      }
+    },
+    signOut() {
+      Firebase.auth().signOut()
+        .then(() => {
+          this.auth = false;
+          this.user = {};
+          this.token = '';
+        })
+        .catch((error) => {
+          console.log(error);
+          // An error happened.
+        });
     },
   },
   firebase: {
