@@ -29,14 +29,13 @@
       :clipped-left="clipped"
     >
       <!-- <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon> -->
-      <v-toolbar-title> {{ title }} {{ year }} </v-toolbar-title>
+      <v-toolbar-title> {{ title }} {{ year }} Home </v-toolbar-title>
       <v-spacer></v-spacer>
         <p color="orange"> Welcome Back {{ user.email }} </p>
         <v-btn flat color="orange" v-show="!auth" @click.stop="dialog = true">Login</v-btn>
         <v-btn flat color="orange" v-show="auth" v-on:click="signOut()">Sign Out</v-btn>
     </v-toolbar>
     <v-content>
-      <router-view></router-view>
 
       <v-dialog v-model="dialog" max-width="500px">
         <v-card>
@@ -75,7 +74,7 @@ const db = app.database();
 const resolutionsRef = db.ref('resolutions');
 
 export default {
-  name: 'App',
+  name: 'Home',
   data() {
     return {
       auth: false,
