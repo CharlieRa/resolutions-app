@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import Router from 'voue-router';
+import Router from 'vue-router';
 
 import Login from '@/components/Login';
 import Home from '@/components/Home';
@@ -7,25 +7,29 @@ import Home from '@/components/Home';
 Vue.use(Router);
 
 export default new Router({
-    mode: 'history',
-    routes: [
-        {
-            path: '/home',
-            name: 'Home',
-            component: Home
-        },
-        {
-            path: '/',
-            name: 'Login',
-            component: Login
-        }
-    ]
+  mode: 'history',
+  routes: [
+    {
+      path: '/home',
+      name: 'Home',
+      component: Home,
+    },
+    {
+      path: '/',
+      name: 'Login',
+      component: Login,
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+    },
+  ],
 });
-
-function loginRequired(to, from, next) {
-    if (authService.authenticated()) {
-        next()
-    } else {
-        next('/login')
-    }
-}
+// function loginRequired(to, from, next) {
+//   if (authService.authenticated()) {
+//     next()
+//   } else {
+//     next('/login')
+//   }
+// }

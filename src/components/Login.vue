@@ -2,13 +2,16 @@
   <v-container fluid>
     <v-layout column align-center>
       <v-flex>
-          <v-text-field label='Title' v-model="titleText"></v-text-field>
-          <v-text-field label='Detail' v-model="detailText"></v-text-field>
+        <h1>Login</h1>
+      </v-flex>
+      <v-flex>
+          <v-text-field label='email' v-model="email"></v-text-field>
+          <v-text-field label='password' v-model="password"></v-text-field>
           <v-btn ripple v-on:click="sendForm()">
-            Add<v-icon right dark>add</v-icon>
+            Send<v-icon right dark>check</v-icon>
           </v-btn>
-          <v-btn ripple v-on:click="closeForm()">
-            Close<v-icon right dark>close</v-icon>
+          <v-btn ripple v-on:click="loginWithProvider('google')">
+            Login with Google
           </v-btn>
       </v-flex>
     </v-layout>
@@ -21,13 +24,15 @@ export default {
   data() {
     return {
       authenticate: false,
-      titleText: '',
-      detailText: '',
+      email: '',
+      password: '',
     };
   },
   methods: {
     sendForm() {
-      if (this.titleText.length > 0 && this.detailText.length > 0) {
+      console.log(this.email);
+      console.log(this.password);
+      if (this.email.length > 0 && this.password.length > 0) {
         const title = this.titleText;
         const detail = this.detailText;
         this.$emit('create-resolution', {
@@ -38,12 +43,13 @@ export default {
       }
       this.isCreating = false;
     },
+    loginWithProvider(provider) {
+      console.log(provider);
+      console.log(Firebase);
+    },
   },
 };
 </script>
 
 <style scoped>
-h1 {
-  font-weight: normal;
-}
 </style>
