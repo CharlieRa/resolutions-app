@@ -45,7 +45,10 @@ export default {
     },
     loginWithProvider(provider) {
       console.log(provider);
-      console.log(Firebase);
+      if (provider === 'google') {
+        this.$store.dispatch('userLoginGoogle');
+      }
+      // console.log(Firebase);
     },
   },
 };
