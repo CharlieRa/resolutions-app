@@ -4,7 +4,7 @@
       <CreateResolution v-on:create-resolution="addResolution" />
       <ResolutionList
         v-on:remove-resolution="deleteResolution"
-        v-bind:resolutions="resolutions" v-bind:auth="auth"/>
+        v-bind:resolutions="resolutions" v-bind:auth="isAuthenticated"/>
     </v-content>
 </template>
 
@@ -18,22 +18,25 @@ export default {
   name: 'Home',
   data() {
     return {
-      auth: false,
       title: 'My resolutions for ',
       year: new Date().getFullYear(),
-      dialog: false,
-      user: {},
-      items: [{
-        icon: 'bubble_chart',
-        title: 'Inspire',
-      }],
-      miniVariant: false,
-      right: false,
-      rightDrawer: false,
     };
   },
   beforeCreate: () => {
     console.log(this.user);
+  },
+  computed: {
+    appTitle() {
+      return this.$store.getters.appTitle;
+    },
+    isAuthenticated() {
+      console.log(this.$store.getters.getUser);
+      return this.$store.getters.getUser !== null && this.$store.getters.getUser !== undefined;
+    },
+    resolutions() {
+      console.log(this.$store.getters.getResolutions);
+      return this.$store.getters.getResolutions;
+    },
   },
   methods: {
     addResolution(newResolution) {
@@ -45,29 +48,6 @@ export default {
     deleteResolution(resolution) {
       console.log(resolution);
       // resolutionsRef.child(resolution['.key']).remove();
-    },
-    loginWithProvider(provider) {
-      let prvdr;
-      if (provider === 'google') {
-        prvdr = new Firebase.auth.GoogleAuthProvider();
-        Firebase.auth().languageCode = 'es';
-        Firebase.auth().signInWithPopup(prvdr)
-          .then(
-            (result) => {
-              this.token = result.credential.accessToken;
-              this.user = result.user;
-              if (this.user.email === 'carlos.ramart@gmail.com') {
-                this.auth = true;
-              }
-              console.log(this.user);
-              console.log(this.token);
-              this.dialog = false;
-            })
-          .catch(
-            (error) => {
-              console.log(error);
-            });
-      }
     },
     signOut() {
       Firebase.auth().signOut()
