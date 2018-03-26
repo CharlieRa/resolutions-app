@@ -4,16 +4,17 @@ import Vuex from 'vuex';
 import firebase from 'firebase';
 import router from '@/router';
 
+
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    appTitle: 'Resolutions App',
+    appTitle: 'My resolutions for ',
+    year: new Date().getFullYear(),
     user: null,
     credential: null,
     accessToken: null,
     error: null,
-    resolutions: null,
     loading: false,
   },
   getters: {
@@ -26,8 +27,8 @@ export default new Vuex.Store({
     getCredential(state) {
       return state.credential;
     },
-    getResolutions(state) {
-      return state.resolutions;
+    getResolutionsReference(state) {
+      return state.resolutionsReference;
     },
     getError(state) {
       return state.error;
@@ -48,9 +49,6 @@ export default new Vuex.Store({
     },
     setCredential(state, payload) {
       state.credential = payload;
-    },
-    setResolutions(state, payload) {
-      state.resolutions = payload;
     },
   },
   actions: {
@@ -73,11 +71,9 @@ export default new Vuex.Store({
       firebase.auth().signInWithPopup(prvdr).then(
         (result) => {
           console.log(result);
-          // this.token = result.credential.accessToken;
-          // this.user = result.user;
           commit('setUser', result.user);
-          commit('setCredenttial', result.credential);
-          // commit('setLoading', false)
+          commit('setCredential', result.credential);
+          commit('setLoading', false);
           router.push('/home');
         }).catch(
         (error) => {

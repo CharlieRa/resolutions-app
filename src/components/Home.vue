@@ -9,10 +9,16 @@
 </template>
 
 <script>
-import Firebase from 'firebase';
+import firebase from 'firebase';
 import Quote from './Quote';
 import ResolutionList from './ResolutionList';
 import CreateResolution from './CreateResolution';
+
+import { config } from '../../config/firebase-config';
+
+const app = firebase.initializeApp(config);
+const db = app.database();
+const resolutionsReference = db.ref('resolutions');
 
 export default {
   name: 'Home',
@@ -20,10 +26,8 @@ export default {
     return {
       title: 'My resolutions for ',
       year: new Date().getFullYear(),
+      resolutionsRef: null,
     };
-  },
-  beforeCreate: () => {
-    console.log(this.user);
   },
   computed: {
     appTitle() {
@@ -33,24 +37,20 @@ export default {
       console.log(this.$store.getters.getUser);
       return this.$store.getters.getUser !== null && this.$store.getters.getUser !== undefined;
     },
-    resolutions() {
-      console.log(this.$store.getters.getResolutions);
-      return this.$store.getters.getResolutions;
-    },
   },
   methods: {
     addResolution(newResolution) {
-      // resolutionsRef.push(
-      //   newResolution,
-      // );
+      resolutionsReference.push(
+        newResolution,
+      );
       console.log(newResolution);
     },
     deleteResolution(resolution) {
       console.log(resolution);
-      // resolutionsRef.child(resolution['.key']).remove();
+      resolutionsReference.child(resolution['.key']).remove();
     },
     signOut() {
-      Firebase.auth().signOut()
+      firebase.auth().signOut()
         .then(() => {
           this.auth = false;
           this.user = {};
@@ -61,6 +61,9 @@ export default {
           // An error happened.
         });
     },
+  },
+  firebase: {
+    resolutions: resolutionsReference,
   },
   components: {
     Quote,
