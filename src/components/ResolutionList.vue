@@ -16,9 +16,9 @@
             <v-card class="white--text">
               <v-card-title primary-title>
                 <div>
-                  <h3 class="headline"> {{ resolution.title }} </h3>
-                  <p> {{ resolution.detail }} </p>
-                   <v-form v-show="auth">
+                  <h3 class="headline" v-show="!isEditing"> {{ resolution.title }} </h3>
+                  <p v-show="!isEditing"> {{ resolution.detail }} </p>
+                   <v-form v-show="isEditing">
                     <v-text-field
                       label="Title"
                       v-model="resolution.title"
@@ -28,14 +28,17 @@
                     <v-text-field
                       label="Detail"
                       v-model="resolution.detail"
+                      :counter="100"
                       required
                     ></v-text-field>
+                    <v-btn flat color="white" @click="showForm()">Edit</v-btn>
                   </v-form>
                 </div>
               </v-card-title>
                <v-card-actions>
-                <v-btn flat color="white" v-show="auth">Complete</v-btn>
-                <v-btn flat color="white" v-show="auth">Edit</v-btn>
+                <v-btn flat color="white" @click="completeResolution()">Complete</v-btn>
+                <v-btn flat color="white" @click="showForm()" v-show="!isEditing">Edit</v-btn>
+                <v-btn flat color="success" @click="hideForm()" v-show="isEditing">Save</v-btn>
               </v-card-actions>
             </v-card>
           </v-flex>
@@ -46,15 +49,30 @@
 <script>
 export default {
   name: 'ResolutionList',
-  props: ['resolutions', 'auth'],
+  props: ['resolutions'],
   data() {
     return {
       editDialog: false,
+      isEditing: false,
     };
   },
   methods: {
-    deleteTodo(resolution) {
+    deleteResolution(resolution) {
       this.$emit('remove-resolution', resolution);
+    },
+    showForm() {
+      console.log('edit');
+      this.isEditing = true;
+      // this.$emit('remove-resolution', resolution);
+    },
+    hideForm() {
+      console.log('edit');
+      this.isEditing = false;
+      // this.$emit('remove-resolution', resolution);
+    },
+    completeResolution() {
+      console.log('complete');
+      // this.$emit('remove-resolution', resolution);
     },
   },
 };
