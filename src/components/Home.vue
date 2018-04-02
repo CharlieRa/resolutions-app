@@ -58,7 +58,6 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-          // An error happened.
         });
     },
   },
