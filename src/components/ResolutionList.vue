@@ -12,18 +12,30 @@
         </v-flex>
       </v-layout>
          <v-layout row wrap>
-           <!-- <v-flex xs12 sm12 md6 offset-md3 v-for="resolution in resolutions" :key="resolution.id"> -->
-             <Resolution v-for="resolution in resolutions" v-bind:resolution="resolution" :key="resolution.id"></Resolution>
+             <Resolution 
+              v-on:edit-resolution="editResolution"
+              v-on:complete-resolution="completeResolution"
+              v-on:remove-resolution="deleteResolution"
+              v-for="resolution in resolutions" 
+              v-bind:resolution="resolution" 
+              :key="resolution.id"></Resolution>
         </v-layout>
   </v-container>
 </template>
 
 <script>
+import firebase from 'firebase';
+
 import Resolution from './Resolution';
+
+import { config } from '../../config/firebase-config';
+
+const app = firebase.initializeApp(config);
+const db = app.database();
+const resolutionsReference = db.ref('resolutions');
 
 export default {
   name: 'ResolutionList',
-  props: ['resolutions'],
   data() {
     return {
       editDialog: false,
@@ -31,9 +43,33 @@ export default {
     };
   },
   methods: {
+    addResolution(newResolution) {
+      resolutionsReference.push(
+        newResolution,
+      );
+      console.log(newResolution);
+    },
+    completeResolution(resolution) {
+      resolutionsReference.child(resolution.res['.key']).update({
+        done: resolution.done,
+      });
+    },
+    editResolution(resolution) {
+      console.log(resolutionsReference.child(resolution.res['.key']).update({
+        title: resolution.title,
+        detail: resolution.detail,
+      }));
+    },
+    deleteResolution(resolution) {
+      console.log(resolution);
+      resolutionsReference.child(resolution['.key']).remove();
+    },
   },
   components: {
     Resolution,
+  },
+  firebase: {
+    resolutions: resolutionsReference,
   },
 };
 </script>

@@ -2,7 +2,7 @@
   <v-container fluid grid-list-lg>
     <v-layout row wrap>
       <v-flex xs12 sm12 md6 offset-md3>
-        <v-card class="white--text">
+        <v-card  v-bind:class="{ 'green': resolution.done }" class="white--text">
           <v-card-title primary-title>
             <div>
               <h3 class="headline" v-show="!isEditing"> {{ resolution.title }} </h3>
@@ -24,10 +24,11 @@
             </div>
           </v-card-title>
             <v-card-actions>
-            <v-btn flat color="white" @click="completeResolution()" v-show="!isEditing">Complete</v-btn>
+            <v-btn flat color="white" @click="toggleDoneResolution()" v-show="!isEditing">{{ resolution.done ? 'UnComplete' : 'Complete' }}</v-btn>
             <v-btn flat color="white" @click="showForm()" v-show="!isEditing">Edit</v-btn>
             <v-btn flat color="success" @click="saveForm()" v-show="isEditing">Save</v-btn>
-            <v-btn flat color="error" @click="hideForm()" v-show="isEditing">Close</v-btn>
+            <v-btn flat color="warning" @click="hideForm()" v-show="isEditing">Close</v-btn>
+            <v-btn flat color="error" @click="deleteResolution()" v-show="isEditing">Delete</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -51,20 +52,25 @@ export default {
     },
     showForm() {
       this.isEditing = true;
-      console.log(this.resolution);
-      // this.$emit('remove-resolution', resolution);
     },
     hideForm() {
       this.isEditing = false;
     },
     saveForm() {
-      console.log('save');
+      const res = this.resolution;
       this.isEditing = false;
-      // this.$emit('remove-resolution', resolution);
+      this.$emit('edit-resolution', {
+        res,
+        title: res.title,
+        detail: res.detail,
+      });
     },
-    completeResolution() {
-      console.log('complete');
-      // this.$emit('remove-resolution', resolution);
+    toggleDoneResolution() {
+      const res = this.resolution;
+      this.$emit('complete-resolution', {
+        res,
+        done: !res.done,
+      });
     },
   },
 };

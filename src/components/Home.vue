@@ -2,9 +2,7 @@
     <v-content>
       <Quote/>
       <CreateResolution v-on:create-resolution="addResolution" />
-      <ResolutionList
-        v-on:remove-resolution="deleteResolution"
-        v-bind:resolutions="resolutions" v-bind:auth="isAuthenticated"/>
+      <ResolutionList v-bind:auth="isAuthenticated"/>
     </v-content>
 </template>
 
@@ -14,11 +12,11 @@ import Quote from './Quote';
 import ResolutionList from './ResolutionList';
 import CreateResolution from './CreateResolution';
 
-import { config } from '../../config/firebase-config';
+// import { config } from '../../config/firebase-config';
 
-const app = firebase.initializeApp(config);
-const db = app.database();
-const resolutionsReference = db.ref('resolutions');
+// const app = firebase.initializeApp(config);
+// const db = app.database();
+// const resolutionsReference = db.ref('resolutions');
 
 export default {
   name: 'Home',
@@ -26,7 +24,6 @@ export default {
     return {
       title: 'My resolutions for ',
       year: new Date().getFullYear(),
-      resolutionsRef: null,
     };
   },
   computed: {
@@ -40,14 +37,10 @@ export default {
   },
   methods: {
     addResolution(newResolution) {
-      resolutionsReference.push(
-        newResolution,
-      );
+      // resolutionsReference.push(
+      //   newResolution,
+      // );
       console.log(newResolution);
-    },
-    deleteResolution(resolution) {
-      console.log(resolution);
-      resolutionsReference.child(resolution['.key']).remove();
     },
     signOut() {
       firebase.auth().signOut()
@@ -60,9 +53,6 @@ export default {
           console.log(error);
         });
     },
-  },
-  firebase: {
-    resolutions: resolutionsReference,
   },
   components: {
     Quote,
