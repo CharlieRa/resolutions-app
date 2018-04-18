@@ -12,6 +12,7 @@ export default new Vuex.Store({
     appTitle: 'My resolutions for ',
     year: new Date().getFullYear(),
     user: null,
+    userId: null,
     credential: null,
     accessToken: null,
     error: null,
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     getLoading(state) {
       return state.loading;
     },
+    getUserId(state) {
+      return state.userId;
+    },
   },
   mutations: {
     setUser(state, payload) {
@@ -49,6 +53,9 @@ export default new Vuex.Store({
     },
     setCredential(state, payload) {
       state.credential = payload;
+    },
+    setUserId(state, payload) {
+      state.userId = payload;
     },
   },
   actions: {
@@ -70,14 +77,14 @@ export default new Vuex.Store({
       firebase.auth().languageCode = 'es';
       firebase.auth().signInWithPopup(prvdr).then(
         (result) => {
-          console.log(result);
+          console.log(result.user.uid);
           commit('setUser', result.user);
+          commit('setUserId', result.user.uid);
           commit('setCredential', result.credential);
           commit('setLoading', false);
           router.push('/home');
         }).catch(
         (error) => {
-          console.log(error);
           commit('setError', error.message);
           commit('setLoading', false);
         });

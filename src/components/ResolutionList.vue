@@ -25,14 +25,12 @@
 
 <script>
 import firebase from 'firebase';
-
 import Resolution from './Resolution';
-
 import { config } from '../../config/firebase-config';
 
 const app = firebase.initializeApp(config);
 const db = app.database();
-const resolutionsReference = db.ref('resolutions');
+const resolutionsReference = db.ref('resolutions').orderByChild('userId').equalTo('Leer un Libro cada Mes');
 
 export default {
   name: 'ResolutionList',
@@ -42,6 +40,7 @@ export default {
       isEditing: false,
     };
   },
+  props: ['auth', 'userId'],
   methods: {
     addResolution(newResolution) {
       resolutionsReference.push(
@@ -50,6 +49,7 @@ export default {
       console.log(newResolution);
     },
     completeResolution(resolution) {
+      console.log(this.userId);
       resolutionsReference.child(resolution.res['.key']).update({
         done: resolution.done,
       });
