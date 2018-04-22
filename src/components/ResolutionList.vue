@@ -1,16 +1,16 @@
 <template>
   <v-container fluid grid-list-lg>
-    <!-- <v-layout row align-center>
+    <v-layout row align-center>
       <v-flex xs6 sm3 offset-sm3>
         <p>Accomplished Resolutions:
-          {{resolutions.filter(resolution => {return resolution.done === true}).length}}</p>
+          {{ doneResolutions }}</p>
         </v-flex>
         <v-flex>
           <p>Pending Resolutions:
-            {{resolutions.filter(resolution => {return resolution.done === false}).length}}
+            {{ pendingResolutions }}
           </p>
         </v-flex>
-      </v-layout> -->
+      </v-layout>
       <v-layout row wrap>
         <Resolution 
         v-on:edit-resolution="editResolution"
@@ -30,25 +30,33 @@ import { config } from '../../config/firebase-config';
 
 const app = firebase.initializeApp(config);
 const db = app.database();
-// resolutionsReference = db.ref('resolutions').orderByChild('userId').
-// equalTo('4wtjre4Y2ccEndKaKRm3ULNAEWD3');
+const resolutionsRef = db.ref('resolutions');
+
 export default {
   name: 'ResolutionList',
   data() {
     return {
       editDialog: false,
       isEditing: false,
-      user_ident: 'lala',
       resolutions: null,
+      doneResolutions: 0,
+      pendingResolutions: 0,
+      resolutionsRef: null,
     };
   },
   mounted() {
-    console.log(this.userId);
-    db.ref('resolutions')
+    resolutionsRef
       .orderByChild('userId')
       .equalTo(this.userId)
       .on('value', (snapshot) => {
         this.resolutions = snapshot.val();
+        console.log(snapshot);
+        if (this.resolutions) {
+          this.doneResolutions = snapshot
+            .filter(resolution => resolution.done === true).length;
+          this.pendingResolutions = snapshot
+            .filter(resolution => resolution.done === false).length;
+        }
       });
   },
   props: ['auth', 'userId'],
@@ -60,8 +68,9 @@ export default {
       console.log(newResolution);
     },
     completeResolution(resolution) {
-      console.log(this.userId);
-      this.resolutions.child(resolution.res['.key']).update({
+      console.log(resolution);
+      console.log(this.resolutionsRef);
+      resolutionsRef.child(resolution.res['.key']).update({
         done: resolution.done,
       });
     },

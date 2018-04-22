@@ -77,12 +77,11 @@ export default new Vuex.Store({
       firebase.auth().languageCode = 'es';
       firebase.auth().signInWithPopup(prvdr).then(
         (result) => {
-          console.log(result.user.uid);
           commit('setUser', result.user);
           commit('setUserId', result.user.uid);
           commit('setCredential', result.credential);
           commit('setLoading', false);
-          router.push('/home');
+          router.push('/');
         }).catch(
         (error) => {
           commit('setError', error.message);
